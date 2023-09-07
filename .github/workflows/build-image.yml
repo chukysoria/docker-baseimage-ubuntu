@@ -6,10 +6,10 @@ on:
   push:
 
 env:
-  VERSION: 3.18
+  VERSION: jammy
   GH_USER: chukysoria
-  GH_REPO: docker-baseimage-alpine
-  IMAGE_NAME: baseimage-alpine
+  GH_REPO: docker-baseimage-ubuntu
+  IMAGE_NAME: baseimage-ubuntu
   ARCH: arm32v7
 
 jobs:
@@ -55,7 +55,7 @@ jobs:
             org.opencontainers.image.created=${{ env.NOW }}
             org.opencontainers.image.authors=Carlos Sanchez
             org.opencontainers.image.url=https://github.com/${{ env.GH_USER }}/${{ env.GH_REPO }}/packages
-            org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-alpine
+            org.opencontainers.image.documentation=https://docs.linuxserver.io/images/docker-baseimage-ububtu
             org.opencontainers.image.source=https://github.com/${{ env.GH_USER }}/${{ env.GH_REPO }}
             org.opencontainers.image.version=${{ github.ref_name }}-ls
             org.opencontainers.image.revision=${{ github.sha }}
@@ -63,7 +63,7 @@ jobs:
             org.opencontainers.image.licenses=GPL-3.0-only
             org.opencontainers.image.ref.name=${{ github.sha }}
             org.opencontainers.image.title=${{ env.IMAGE_NAME }}
-            org.opencontainers.image.description=baseimage-alpine image by Chukysoria    
+            org.opencontainers.image.description=baseimage-ubuntu image by Chukysoria    
 
       - name: Build and push
         uses: docker/build-push-action@v4
