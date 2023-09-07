@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
 
-FROM alpine:3.17 as rootfs-stage
+FROM alpine:3.18 as rootfs-stage
 
 # environment
 ENV REL=jammy
-ENV ARCH=amd64
+ENV ARCH=armhf
 
 # install packages
 RUN \
@@ -28,7 +28,7 @@ RUN \
 
 # set version for s6 overlay
 ARG S6_OVERLAY_VERSION="3.1.5.0"
-ARG S6_OVERLAY_ARCH="x86_64"
+ARG S6_OVERLAY_ARCH="armhf"
 
 # add s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
@@ -49,8 +49,8 @@ ARG BUILD_DATE
 ARG VERSION
 ARG MODS_VERSION="v3"
 ARG PKG_INST_VERSION="v1"
-LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
-LABEL maintainer="TheLamer"
+LABEL build_version="Carlosserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+LABEL maintainer="Chukysoria"
 
 ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.${MODS_VERSION}" "/docker-mods"
 ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
@@ -68,7 +68,7 @@ ENV HOME="/root" \
   PATH="/lsiopy/bin:$PATH"
 
 # copy sources
-COPY sources.list /etc/apt/
+COPY sources.list.arm /etc/apt/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
@@ -125,6 +125,11 @@ RUN \
     /config \
     /defaults \
     /lsiopy && \
+  echo "**** add qemu ****" && \
+  curl -o \
+  /usr/bin/qemu-arm-static -L \
+    "https://lsio-ci.ams3.digitaloceanspaces.com/qemu-arm-static" && \
+  chmod +x /usr/bin/qemu-arm-static && \
   echo "**** cleanup ****" && \
   apt-get autoremove && \
   apt-get clean && \
