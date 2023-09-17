@@ -61,6 +61,7 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 # Runtime stage
 FROM scratch
 COPY --from=rootfs-stage /root-out/ /
+ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG VERSION
 ARG MODS_VERSION="v3"
