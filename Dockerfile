@@ -17,23 +17,24 @@ RUN \
     xz
 
 # grab base tarball
-RUN \
-  if [[ $BUILD_ARCH == "armv7" ]]; then \
-    UBUNTU_ARCH=armhf \
-  elif [[ $BUILD_ARCH == "aarch64" ]]; then \
-    UBUNTU_ARCH=arm64 \
-  elif [[ $BUILD_ARCH == "x86_64" ]]; then \
-    UBUNTU_ARCH=amd64 \
-  fi && \
-  mkdir /root-out && \
+RUN <<EOF
+  if [[ $BUILD_ARCH == "armv7" ]]; then
+    UBUNTU_ARCH=armhf
+  elif [[ $BUILD_ARCH == "aarch64" ]]; then
+    UBUNTU_ARCH=arm64
+  elif [[ $BUILD_ARCH == "x86_64" ]]; then
+    UBUNTU_ARCH=amd64
+  fi
+  mkdir /root-out
   curl -o \
     /rootfs.tar.gz -L \
-    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/current/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz && \
+    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/current/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz
   tar xf \
     /rootfs.tar.gz -C \
-    /root-out && \
+    /root-out
   rm -rf \
     /root-out/var/log/*
+EOF
 
 # set version for s6 overlay
 ARG S6_OVERLAY_VERSION="3.1.5.0"
