@@ -1,10 +1,12 @@
 # syntax=docker/dockerfile:1
 
-FROM alpine:3.18 as rootfs-stage
+ARG BUILD_FROM=alpine:3.18.3
+
+FROM ${BUILD_FROM} as rootfs-stage
 
 # environment
-ENV REL=jammy
-ENV ARCH=armhf
+ARG BUILD_ARCH
+ARG BUILD_EXT_RELEASE
 
 # install packages
 RUN \
@@ -16,10 +18,17 @@ RUN \
 
 # grab base tarball
 RUN \
+  if [[ $BUILD_ARCH == "armv7" ]]; then \
+    UBUNTU_ARCH=armhf \
+  elif [[ $BUILD_ARCH == "aarch64" ]]; then \
+    UBUNTU_ARCH=arm64 \
+  elif [[ $BUILD_ARCH == "x86_64" ]]; then \
+    UBUNTU_ARCH=amd64 \
+  fi && \
   mkdir /root-out && \
   curl -o \
     /rootfs.tar.gz -L \
-    https://partner-images.canonical.com/core/${REL}/current/ubuntu-${REL}-core-cloudimg-${ARCH}-root.tar.gz && \
+    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/current/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz && \
   tar xf \
     /rootfs.tar.gz -C \
     /root-out && \
@@ -28,13 +37,19 @@ RUN \
 
 # set version for s6 overlay
 ARG S6_OVERLAY_VERSION="3.1.5.0"
-ARG S6_OVERLAY_ARCH="armhf"
 
 # add s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
 RUN tar -C /root-out -Jxpf /tmp/s6-overlay-noarch.tar.xz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz /tmp
-RUN tar -C /root-out -Jxpf /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+RUN <<EOF
+  if [[ $BUILD_ARCH == "armv7" ]]; then
+    S6_OVERLAY_ARCH=armhf
+  else
+    S6_OVERLAY_ARCH=$BUILD_ARCH
+  fi
+  curl -L -o /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+  tar -C /root-out -Jxpf /tmp/s6-overlay-${S6_OVERLAY_ARCH}.tar.xz
+EOF
 
 # add s6 optional symlinks
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-symlinks-noarch.tar.xz /tmp
