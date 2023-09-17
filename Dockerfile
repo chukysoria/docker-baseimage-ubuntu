@@ -84,9 +84,16 @@ ENV HOME="/root" \
   PATH="/lsiopy/bin:$PATH"
 
 # copy sources
-COPY sources.list.arm /etc/apt/sources.list
+COPY sources.list.arm /tmp/sources.list
+COPY sources.list.arm /tmp/sources.list.arm
 
 RUN \
+  echo "**** Select proper source repos" && \
+  if [[ $BUILD_ARCH == "x86_64" ]]; then \
+    mv /tmp/sources.list /etc/apt/sources.list \
+  else \
+    mv /tmp/sources.list.arm /etc/apt/sources.list \
+  fi && \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
   set -xe && \
   echo '#!/bin/sh' \
