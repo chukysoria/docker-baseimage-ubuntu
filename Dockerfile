@@ -123,12 +123,12 @@ RUN \
   echo "**** install apt-utils and locales ****" && \
   apt-get update && \
   apt-get install -y \
-    apt-utils=2.4.10 \
-    locales=2.35-0ubuntu3.1 && \
+    apt-utils \
+    locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
     curl=7.81.0-1ubuntu1.13 \
-    gnupg=2.2.27-3ubuntu2.1 \
+    gnupg \
     jq=1.6-2.1ubuntu3 \
     netcat=1.218-4ubuntu1 \
     tzdata=2023c-0ubuntu0.22.04.2 && \
