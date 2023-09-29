@@ -8,7 +8,7 @@ on:
 jobs:
   information:
     name: ℹ️ Gather add-on information
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-jammy
     outputs:
       name: ${{ steps.basic.outputs.name }}
       image: ${{ steps.basic.outputs.image }}
@@ -83,7 +83,7 @@ jobs:
   build:
     name: 👷 Build & Deploy ${{ matrix.architecture }}
     needs: information
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-jammy
     strategy:
       matrix:
         architecture: ${{ fromJson(needs.information.outputs.architectures) }}
@@ -213,7 +213,7 @@ jobs:
 
   publish:
     name: 👷 Publish manifest
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-jammy
     needs:
       - information
       - build
