@@ -241,7 +241,7 @@ jobs:
             type=semver,pattern=v{{version}}
             type=semver,pattern=v{{major}},enable=${{ !startsWith(github.ref, 'refs/tags/v0.') }}
             type=semver,pattern=v{{major}}.{{minor}}
-            type=semver,pattern=v{{version}},prefix=${{ needs.information.outputs.ext_release_clean }}-
+            type=semver,pattern=v{{version}},suffix=-${{ needs.information.outputs.ext_release_clean }}
       
       - name: 🚀 Calculate source images and output tags
         id: source
