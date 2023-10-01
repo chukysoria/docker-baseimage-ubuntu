@@ -8,6 +8,6 @@ on:
 jobs:
   build-and-deploy:
     name: Build and deploy
-    uses: chukysoria/workflows/.github/workflows/build-image.yml@e435da6
+    uses: chukysoria/workflows/.github/workflows/build-image.yml@53b03fe
     with:
       tag-external-version: true
