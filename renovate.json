@@ -2,12 +2,21 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "rebaseWhen": "behind-base-branch",
   "dependencyDashboard": true,
-  "labels": ["dependencies", "no-stale"],
+  "labels": [
+    "dependencies",
+    "no-stale"
+  ],
   "commitMessagePrefix": "⬆️",
   "commitMessageTopic": "{{depName}}",
+  "assignees": [
+    "chukysoria"
+  ],
   "regexManagers": [
     {
-      "fileMatch": ["(^|/)Dockerfile$", "(^|/)build.yaml$"],
+      "fileMatch": [
+        "(^|/)Dockerfile$",
+        "(^|/)build.yaml$"
+      ],
       "matchStringsStrategy": "any",
       "matchStrings": [
         "ARG BUILD_FROM=(?<depName>.*?):(?<currentValue>.*?)\\s+",
@@ -16,7 +25,9 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["(^|/)Dockerfile$"],
+      "fileMatch": [
+        "(^|/)Dockerfile$"
+      ],
       "matchStringsStrategy": "any",
       "matchStrings": [
         "\\s\\s(?<package>[a-z0-9-]+)=(?<currentValue>[a-z0-9-_+~.]+)\\s+"
@@ -26,7 +37,9 @@
       "depNameTemplate": "ubuntu_22_04/{{package}}"
     },
     {
-      "fileMatch": ["(^|/)Dockerfile$"],
+      "fileMatch": [
+        "(^|/)Dockerfile$"
+      ],
       "matchStrings": [
         "ARG S6_OVERLAY_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
@@ -34,12 +47,24 @@
       "depNameTemplate": "just-containers/s6-overlay"
     },
     {
-      "fileMatch": ["(^|/)Dockerfile$"],
+      "fileMatch": [
+        "(^|/)Dockerfile$"
+      ],
       "matchStrings": [
         "ARG BUILD_EXT_RELEASE=(?<depName>.*)[\\s\\S]*https:\\/\\/partner-images\\.canonical\\.com\\/core\\/\\${BUILD_EXT_RELEASE}\\/(?<currentValue>\\d{8})"
       ],
       "versioningTemplate": "loose",
       "datasourceTemplate": "custom.ubuntu-core"
+    },
+    {
+      "fileMatch": ["(^|/)Dockerfile$", "(^|/)config.yaml$"],
+      "matchStrings": [
+        "ARG BUILD_EXT_RELEASE=[\"']?(?<currentValue>.+?)[\"']?\\s+",
+        "ext_release: (?<currentValue>.+)\\s+"
+      ],
+      "versioningTemplate": "ubuntu",
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "public.ecr.aws/lts/ubuntu"
     }
   ],
   "customDatasources": {
@@ -50,5 +75,5 @@
         "{\"releases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
       ]
     }
-}
+  }
 }
