@@ -6,7 +6,7 @@ FROM ${BUILD_FROM} as rootfs-stage
 
 # environment
 ARG BUILD_ARCH
-ARG BUILD_EXT_RELEASE=focal
+ARG BUILD_EXT_RELEASE=jammy
 
 # install packages
 RUN \
