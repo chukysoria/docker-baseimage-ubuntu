@@ -57,7 +57,10 @@
       "datasourceTemplate": "custom.ubuntu-core"
     },
     {
-      "fileMatch": ["(^|/)Dockerfile$", "(^|/)config.yaml$"],
+      "fileMatch": [
+        "(^|/)Dockerfile$",
+        "(^|/)config.yaml$"
+      ],
       "matchStrings": [
         "ARG BUILD_EXT_RELEASE=[\"']?(?<currentValue>.+?)[\"']?\\s+",
         "ext_release: (?<currentValue>.+)\\s+"

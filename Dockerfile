@@ -6,7 +6,7 @@ FROM ${BUILD_FROM} as rootfs-stage
 
 # environment
 ARG BUILD_ARCH
-ARG BUILD_EXT_RELEASE=focal
+ARG BUILD_EXT_RELEASE=jammy
 
 # install packages
 RUN \
@@ -28,7 +28,7 @@ RUN <<EOF
   mkdir /root-out
   curl -o \
     /rootfs.tar.gz -L \
-    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/20230606/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz
+    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/20230626/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz
   tar xf \
     /rootfs.tar.gz -C \
     /root-out
