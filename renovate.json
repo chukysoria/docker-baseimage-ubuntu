@@ -32,6 +32,22 @@
       ],
       "datasourceTemplate": "github-releases",
       "depNameTemplate": "just-containers/s6-overlay"
+    },
+    {
+      "fileMatch": ["(^|/)Dockerfile$"],
+      "matchStrings": [
+        "ARG BUILD_EXT_RELEASE=(?<package>.*)[\\s\\S]*https:\\/\\/partner-images\\.canonical\\.com\\/core\\/\\${BUILD_EXT_RELEASE}\\/(?<currentValue>\\d{8})"
+      ],
+      "versioningTemplate": "loose",
+      "datasourceTemplate": "custom.ubuntu-core"
     }
-  ]
+  ],
+  "customDatasources": {
+    "ubuntu-core": {
+      "defaultRegistryUrlTemplate": "https://partner-images.canonical.com/core/{{packageName}}/",
+      "transformTemplates": [
+        "{\"relases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
+      ]
+    }
+}
 }
