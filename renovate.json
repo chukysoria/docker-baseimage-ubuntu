@@ -47,7 +47,7 @@
       "defaultRegistryUrlTemplate": "https://partner-images.canonical.com/core/{{packageName}}/",
       "format": "plain",
       "transformTemplates": [
-        "{\"relases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
+        "{\"releases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
       ]
     }
 }
