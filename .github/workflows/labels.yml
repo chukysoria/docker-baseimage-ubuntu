@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - master
+      - jammy
     paths:
       - .github/labels.yml
   schedule:
