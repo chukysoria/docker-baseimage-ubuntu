@@ -127,7 +127,7 @@ RUN \
     locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
-    curl=7.81.0-1ubuntu1.13 \
+    curl=7.81.0-1ubuntu1.14 \
     gnupg \
     jq=1.6-2.1ubuntu3 \
     netcat=1.218-4ubuntu1 \
