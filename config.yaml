@@ -1,6 +1,6 @@
 ---
 image:  baseimage-ubuntu
-version: v0.2.0
+version: v0.2.1
 name: Base Image Ubuntu 
 description: "[baseimage-ubuntu] Base image for chukyserver.io"
 ext_release: jammy
