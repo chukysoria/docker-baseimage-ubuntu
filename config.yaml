@@ -3,7 +3,7 @@ image:  baseimage-ubuntu
 version: v0.2.19
 name: Base Image Ubuntu 
 description: "[baseimage-ubuntu] Base image for chukyserver.io"
-ext_release: jammy
+ext_release: noble
 arch:
   - aarch64
   - x86_64
