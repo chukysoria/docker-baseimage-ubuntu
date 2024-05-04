@@ -3,7 +3,7 @@
   "extends": [
     "local>chukysoria/renovate-config",
     "local>chukysoria/renovate-config:docker-build",
-    "local>chukysoria/renovate-config:os-package(ubuntu_22_04)"
+    "local>chukysoria/renovate-config:os-package(ubuntu_24_04)"
   ],
   "regexManagers": [
     {
@@ -21,7 +21,7 @@
         "(^|/)Dockerfile$"
       ],
       "matchStrings": [
-        "ARG BUILD_EXT_RELEASE=(?<depName>.*)[\\s\\S]*https:\\/\\/partner-images\\.canonical\\.com\\/core\\/\\${BUILD_EXT_RELEASE}\\/(?<currentValue>\\d{8})"
+        "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
       "datasourceTemplate": "custom.ubuntu-core"
@@ -36,17 +36,26 @@
         "ext_release: (?<currentValue>.+)\\s+"
       ],
       "versioningTemplate": "ubuntu",
-      "datasourceTemplate": "docker",
+      "datasourceTemplate": "docker", 
       "depNameTemplate": "public.ecr.aws/lts/ubuntu"
     }
   ],
   "customDatasources": {
     "ubuntu-core": {
-      "defaultRegistryUrlTemplate": "https://partner-images.canonical.com/core/{{packageName}}/",
-      "format": "plain",
+      "defaultRegistryUrlTemplate": "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json",
+      "format": "json",
       "transformTemplates": [
-        "{\"releases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
+        "{'releases': [$.products.*[release='noble'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
       ]
     }
-  }
+  },
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "just-containers/s6-overlay"
+      ],
+      "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$",
+      "extractVersion": "^v(?<version>.*)$"
+    }
+  ]
 }

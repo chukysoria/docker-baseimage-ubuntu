@@ -6,6 +6,7 @@ on:
       - main
       - master
       - jammy
+      - noble
 
 jobs:
   update_release_draft:

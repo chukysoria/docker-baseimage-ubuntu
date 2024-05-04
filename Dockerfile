@@ -5,8 +5,9 @@ ARG BUILD_FROM=alpine:3.19.1
 FROM ${BUILD_FROM} as rootfs-stage
 
 # environment
-ARG BUILD_ARCH
+ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=noble
+ARG BUILD_EXT_BUILD=20240423
 
 # install packages
 RUN \
@@ -27,10 +28,10 @@ RUN <<EOF
   fi
   mkdir /root-out
   curl -o \
-    /rootfs.tar.gz -L \
-    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/20230626/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz
-  tar xf \
-    /rootfs.tar.gz -C \
+    /rootfs.tar.xz -L \
+    https://cloud-images.ubuntu.com/${BUILD_EXT_RELEASE}/${BUILD_EXT_BUILD}/${BUILD_EXT_RELEASE}-server-cloudimg-${UBUNTU_ARCH}-root.tar.xz
+  tar xJf \
+    /rootfs.tar.xz -C \
     /root-out
   rm -rf \
     /root-out/var/log/*
@@ -61,7 +62,7 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 # Runtime stage
 FROM scratch
 COPY --from=rootfs-stage /root-out/ /
-ARG BUILD_ARCH
+ARG BUILD_ARCH=x86_64
 ARG BUILD_DATE
 ARG VERSION
 ARG MODS_VERSION="v3"
@@ -89,6 +90,7 @@ COPY sources.list.${BUILD_ARCH} /etc/apt/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
+  rm -f /etc/apt/sources.list.d/ubuntu.sources && \
   set -xe && \
   echo '#!/bin/sh' \
     > /usr/sbin/policy-rc.d && \
@@ -122,17 +124,18 @@ RUN \
     > /run/systemd/container && \
   echo "**** install apt-utils and locales ****" && \
   apt-get update && \
+  apt-get upgrade -y && \
   apt-get install -y \
     apt-utils \
     locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
     cron \
-    curl=7.81.0-1ubuntu1.16 \
+    curl=8.5.0-2ubuntu10.1 \
     gnupg \
-    jq=1.6-2.1ubuntu3 \
-    netcat=1.218-4ubuntu1 \
-    tzdata=2024a-0ubuntu0.22.04 && \
+    jq=1.7.1-3build1 \
+    netcat-openbsd=1.226-1ubuntu2 \
+    tzdata=2024a-2ubuntu1 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** create abc user and make our folders ****" && \
