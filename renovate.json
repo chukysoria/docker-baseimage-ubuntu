@@ -26,22 +26,10 @@
         "(^|/)Dockerfile$"
       ],
       "matchStrings": [
-        "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
+        "ARG BUILD_EXT_RELEASE=[\"']?(?<package>.+?)[\"']?\\s+ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2404",
-      "packageNameTemplate": "noble"
-    },
-    {
-      "fileMatch": [
-        "(^|/)Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
-      ],
-      "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2204",
-      "packageNameTemplate": "jammy"
+      "datasourceTemplate": "custom.ubuntu-core"
     },
     {
       "fileMatch": [
@@ -58,18 +46,11 @@
     }
   ],
   "customDatasources": {
-    "ubuntu-2204": {
-      "defaultRegistryUrlTemplate": "https://partner-images.canonical.com/core/{{packageName}}/",
-      "format": "plain",
-      "transformTemplates": [
-        "{\"releases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
-      ]
-    },
-    "ubuntu-core-2404": {
+    "ubuntu-core": {
       "defaultRegistryUrlTemplate": "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json",
       "format": "json",
       "transformTemplates": [
-        "{'releases': [$.products.*[release='noble'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
+        "{'releases': [$.products.*[release='{{{package}}}'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
       ]
     }
   },
@@ -83,11 +64,12 @@
     },
     {
       "matchDatasources": [
-        "ubuntu-core-2404"
+        "ubuntu-core"
       ],
       "matchBaseBranches": [
         "jammy"
       ],
+      "excludePackageNames": ["jammy"],
       "enabled": false
     },
     {
@@ -104,11 +86,12 @@
     },
     {
       "matchDatasources": [
-        "ubuntu-core-2204"
+        "ubuntu-core"
       ],
       "matchBaseBranches": [
         "noble"
       ],
+      "excludePackageNames": ["noble"],
       "enabled": false
     },
     {

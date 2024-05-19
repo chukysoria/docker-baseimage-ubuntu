@@ -5,8 +5,9 @@ ARG BUILD_FROM=alpine:3.19.1
 FROM ${BUILD_FROM} as rootfs-stage
 
 # environment
-ARG BUILD_ARCH
+ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=jammy
+ARG BUILD_EXT_BUILD=20240403
 
 # install packages
 RUN \
@@ -27,10 +28,10 @@ RUN <<EOF
   fi
   mkdir /root-out
   curl -o \
-    /rootfs.tar.gz -L \
-    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/20230626/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz
-  tar xf \
-    /rootfs.tar.gz -C \
+    /rootfs.tar.xz -L \
+    https://cloud-images.ubuntu.com/${BUILD_EXT_RELEASE}/${BUILD_EXT_BUILD}/${BUILD_EXT_RELEASE}-server-cloudimg-${UBUNTU_ARCH}-root.tar.xz
+  tar xJf \
+    /rootfs.tar.xz -C \
     /root-out
   rm -rf \
     /root-out/var/log/*
@@ -61,7 +62,7 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 # Runtime stage
 FROM scratch
 COPY --from=rootfs-stage /root-out/ /
-ARG BUILD_ARCH
+ARG BUILD_ARCH="x86_64"
 ARG BUILD_DATE
 ARG VERSION
 ARG MODS_VERSION="v3"
