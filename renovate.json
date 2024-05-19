@@ -91,11 +91,15 @@
     },
     {
       "matchDepPrefixes": [
+        "ubuntu"
+      ],
+      "excludeDepPrefixes":[
         "ubuntu_22_04"
       ],
       "matchBaseBranches": [
         "jammy"
-      ]
+      ],
+      "enabled": false 
     },
     {
       "matchDatasources": [
@@ -107,11 +111,15 @@
     },
     {
       "matchDepPrefixes": [
+        "ubuntu"
+      ],
+      "excludeDepPrefixes": [
         "ubuntu_24_04"
       ],
       "matchBaseBranches": [
         "noble"
-      ]
+      ],
+      "enabled": false
     }
   ]
 }
