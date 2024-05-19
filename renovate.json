@@ -50,7 +50,7 @@
       "defaultRegistryUrlTemplate": "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json",
       "format": "json",
       "transformTemplates": [
-        "{'releases': [$.products.*[release='{{{depName}}}'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
+        "{'releases': [$.products.*[release='{{packageName}}'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
       ]
     }
   },
