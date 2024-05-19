@@ -26,7 +26,7 @@
         "(^|/)Dockerfile$"
       ],
       "matchStrings": [
-        "ARG BUILD_EXT_RELEASE=[\"']?(?<package>.+?)[\"']?\\s+ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
+        "ARG BUILD_EXT_RELEASE=[\"']?(?<depName>.+?)[\"']?\\s+ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
       "datasourceTemplate": "custom.ubuntu-core"
@@ -50,7 +50,7 @@
       "defaultRegistryUrlTemplate": "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json",
       "format": "json",
       "transformTemplates": [
-        "{'releases': [$.products.*[release='{{{package}}}'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
+        "{'releases': [$.products.*[release='{{{depName}}}'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
       ]
     }
   },
