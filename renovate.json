@@ -29,7 +29,8 @@
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2404"
+      "datasourceTemplate": "custom.ubuntu-core-2404",
+      "packageName": "noble"
     },
     {
       "fileMatch": [
@@ -39,7 +40,8 @@
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2204"
+      "datasourceTemplate": "custom.ubuntu-core-2204",
+      "packageName": "jammy"
     },
     {
       "fileMatch": [
