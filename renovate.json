@@ -10,7 +10,7 @@
     "jammy",
     "noble"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
       "fileMatch": [
         "(^|/)Dockerfile$"
@@ -29,7 +29,8 @@
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2404"
+      "datasourceTemplate": "custom.ubuntu-core-2404",
+      "packageNameTemplate": "noble"
     },
     {
       "fileMatch": [
@@ -39,7 +40,8 @@
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2204"
+      "datasourceTemplate": "custom.ubuntu-core-2204",
+      "packageNameTemplate": "jammy"
     },
     {
       "fileMatch": [
@@ -81,35 +83,45 @@
     },
     {
       "matchDatasources": [
-        "ubuntu-core-2204"
+        "ubuntu-core-2404"
       ],
       "matchBaseBranches": [
         "jammy"
-      ]
+      ],
+      "enabled": false
     },
     {
       "matchDepPrefixes": [
+        "ubuntu"
+      ],
+      "excludeDepPrefixes":[
         "ubuntu_22_04"
       ],
       "matchBaseBranches": [
         "jammy"
-      ]
+      ],
+      "enabled": false 
     },
     {
       "matchDatasources": [
-        "ubuntu-core-2404"
+        "ubuntu-core-2204"
       ],
       "matchBaseBranches": [
         "noble"
-      ]
+      ],
+      "enabled": false
     },
     {
       "matchDepPrefixes": [
+        "ubuntu"
+      ],
+      "excludeDepPrefixes": [
         "ubuntu_24_04"
       ],
       "matchBaseBranches": [
         "noble"
-      ]
+      ],
+      "enabled": false
     }
   ]
 }
