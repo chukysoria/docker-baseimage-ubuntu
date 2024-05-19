@@ -10,7 +10,7 @@
     "jammy",
     "noble"
   ],
-  "regexManagers": [
+  "customManagers": [
     {
       "fileMatch": [
         "(^|/)Dockerfile$"
@@ -30,7 +30,7 @@
       ],
       "versioningTemplate": "loose",
       "datasourceTemplate": "custom.ubuntu-core-2404",
-      "packageName": "noble"
+      "packageNameTemplate": "noble"
     },
     {
       "fileMatch": [
@@ -41,7 +41,7 @@
       ],
       "versioningTemplate": "loose",
       "datasourceTemplate": "custom.ubuntu-core-2204",
-      "packageName": "jammy"
+      "packageNameTemplate": "jammy"
     },
     {
       "fileMatch": [
