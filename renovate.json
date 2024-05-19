@@ -83,11 +83,12 @@
     },
     {
       "matchDatasources": [
-        "ubuntu-core-2204"
+        "ubuntu-core-2404"
       ],
       "matchBaseBranches": [
         "jammy"
-      ]
+      ],
+      "enabled": false
     },
     {
       "matchDepPrefixes": [
@@ -103,11 +104,12 @@
     },
     {
       "matchDatasources": [
-        "ubuntu-core-2404"
+        "ubuntu-core-2204"
       ],
       "matchBaseBranches": [
         "noble"
-      ]
+      ],
+      "enabled": false
     },
     {
       "matchDepPrefixes": [
