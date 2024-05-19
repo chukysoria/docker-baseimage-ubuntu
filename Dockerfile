@@ -130,7 +130,7 @@ RUN \
     cron \
     curl=7.81.0-1ubuntu1.16 \
     gnupg \
-    jq=1.6-2.1ubuntu3 \
+    jq=1.7.1-3build1 \
     netcat=1.218-4ubuntu1 \
     tzdata=2024a-0ubuntu0.22.04 && \
   echo "**** generate locale ****" && \
