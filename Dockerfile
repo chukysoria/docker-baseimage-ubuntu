@@ -7,7 +7,7 @@ FROM ${BUILD_FROM} as rootfs-stage
 # environment
 ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=jammy
-ARG BUILD_EXT_BUILD=20240627
+ARG BUILD_EXT_BUILD=20240701
 
 # install packages
 RUN \
