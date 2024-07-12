@@ -7,7 +7,7 @@ FROM ${BUILD_FROM} as rootfs-stage
 # environment
 ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=noble
-ARG BUILD_EXT_BUILD=20240702
+ARG BUILD_EXT_BUILD=20240710
 
 # install packages
 RUN \
