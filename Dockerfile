@@ -135,7 +135,7 @@ RUN \
     gnupg \
     jq=1.6-2.1ubuntu3 \
     netcat=1.218-4ubuntu1 \
-    tzdata=2024a-0ubuntu0.22.04.1 && \
+    tzdata=2024a-3ubuntu1.1 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** create abc user and make our folders ****" && \
