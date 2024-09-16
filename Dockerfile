@@ -133,7 +133,7 @@ RUN \
   echo "**** install packages ****" && \
   apt-get install -y \
     cron \
-    curl=8.5.0-2ubuntu10.3 \
+    curl=8.5.0-2ubuntu10.4 \
     gnupg \
     jq=1.7.1-3build1 \
     netcat-openbsd=1.226-1ubuntu2 \
