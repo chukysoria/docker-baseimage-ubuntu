@@ -131,7 +131,7 @@ RUN \
   echo "**** install packages ****" && \
   apt-get install -y \
     cron \
-    curl=7.81.0-1ubuntu1.17 \
+    curl=7.81.0-1ubuntu1.18 \
     gnupg \
     jq=1.6-2.1ubuntu3 \
     netcat=1.218-4ubuntu1 \
