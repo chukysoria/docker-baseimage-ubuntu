@@ -2,7 +2,7 @@
 
 ARG BUILD_FROM=alpine:3.20.3
 
-FROM ${BUILD_FROM} as rootfs-stage
+FROM ${BUILD_FROM} AS rootfs-stage
 
 # environment
 ARG BUILD_ARCH=x86_64
@@ -34,7 +34,10 @@ RUN <<EOF
     /rootfs.tar.xz -C \
     /root-out
   rm -rf \
-    /root-out/var/log/*
+    /root-out/var/log/* \
+    /root-out/home/ubuntu \
+    /root-out/root/{.ssh,.bashrc,.profile} \
+    /build
 EOF
 
 # set version for s6 overlay
@@ -71,9 +74,9 @@ ARG LSIOWN_VERSION="v1"
 LABEL build_version="Carlosserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Chukysoria"
 
-ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.${MODS_VERSION}" "/docker-mods"
-ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
-ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/lsiown.${LSIOWN_VERSION}" "/usr/bin/lsiown"
+ADD --chmod=755 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.${MODS_VERSION}" "/docker-mods"
+ADD --chmod=755 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
+ADD --chmod=755 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/lsiown.${LSIOWN_VERSION}" "/usr/bin/lsiown"
 
 # set environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -132,6 +135,7 @@ RUN \
     locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
+    catatonit \
     cron \
     curl=8.5.0-2ubuntu10.4 \
     gnupg \
