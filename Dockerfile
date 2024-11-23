@@ -2,7 +2,7 @@
 
 ARG BUILD_FROM=alpine:3.20.3
 
-FROM ${BUILD_FROM} as rootfs-stage
+FROM ${BUILD_FROM} AS rootfs-stage
 
 # environment
 ARG BUILD_ARCH=x86_64
