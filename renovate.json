@@ -12,6 +12,7 @@
   ],
   "customManagers": [
     {
+      "customType": "regex",
       "fileMatch": [
         "(^|/)Dockerfile$"
       ],
@@ -22,6 +23,7 @@
       "depNameTemplate": "just-containers/s6-overlay"
     },
     {
+      "customType": "regex",
       "fileMatch": [
         "(^|/)Dockerfile$"
       ],
@@ -32,6 +34,7 @@
       "datasourceTemplate": "custom.ubuntu-core"
     },
     {
+      "customType": "regex",
       "fileMatch": [
         "(^|/)Dockerfile$",
         "(^|/)config.yaml$"
@@ -69,20 +72,20 @@
       "matchBaseBranches": [
         "jammy"
       ],
-      "excludePackageNames": ["jammy"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "!jammy"
+      ]
     },
     {
-      "matchDepPrefixes": [
-        "ubuntu"
-      ],
-      "excludeDepPrefixes":[
-        "ubuntu_22_04"
-      ],
       "matchBaseBranches": [
         "jammy"
       ],
-      "enabled": false 
+      "enabled": false,
+      "matchDepNames": [
+        "ubuntu{/,}**",
+        "!ubuntu_22_04{/,}**"
+      ]
     },
     {
       "matchDatasources": [
@@ -91,20 +94,20 @@
       "matchBaseBranches": [
         "noble"
       ],
-      "excludePackageNames": ["noble"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": [
+        "!noble"
+      ]
     },
     {
-      "matchDepPrefixes": [
-        "ubuntu"
-      ],
-      "excludeDepPrefixes": [
-        "ubuntu_24_04"
-      ],
       "matchBaseBranches": [
         "noble"
       ],
-      "enabled": false
+      "enabled": false,
+      "matchDepNames": [
+        "ubuntu{/,}**",
+        "!ubuntu_24_04{/,}**"
+      ]
     }
   ]
 }
