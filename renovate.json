@@ -52,7 +52,7 @@
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$",
       "extractVersion": "^v(?<version>.*)$"
     },
-        {
+    {
       "matchDatasources": [
         "docker"
       ],
@@ -60,7 +60,7 @@
       "matchPackageNames": [
         "public.ecr.aws/lts/ubuntu{/,}**"
       ],
-      "pinDigests": "false"
+      "pinDigests": false
     },
     {
       "matchDatasources": [
