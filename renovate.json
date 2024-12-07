@@ -59,7 +59,8 @@
       "versioning": "ubuntu",
       "matchPackageNames": [
         "public.ecr.aws/lts/ubuntu{/,}**"
-      ]
+      ],
+      "pinDigests": "false"
     },
     {
       "matchDatasources": [
