@@ -1,7 +1,6 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:db1ff77fb637a5955317c7a3a62540196396d565f3dd5742e76dddbb6d75c4c5
 
-ARG BUILD_FROM=alpine:3.21.0
-
+ARG BUILD_FROM=alpine:3.21.0@sha256:21dc6063fd678b478f57c0e13f47560d0ea4eeba26dfc947b2a4f81f686b9f45
 FROM ${BUILD_FROM} AS rootfs-stage
 
 # environment
