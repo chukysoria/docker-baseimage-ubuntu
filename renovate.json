@@ -60,7 +60,7 @@
       "matchPackageNames": [
         "public.ecr.aws/lts/ubuntu{/,}**"
       ]
-    }
+    },
     {
       "matchDatasources": [
         "ubuntu-core"
