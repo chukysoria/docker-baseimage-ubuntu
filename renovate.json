@@ -12,8 +12,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "(^|/)Dockerfile$"
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
       ],
       "matchStrings": [
         "ARG S6_OVERLAY_VERSION=[\"']?(?<currentValue>.+?)[\"']?\\s+"
@@ -23,8 +23,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "(^|/)Dockerfile$"
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
       ],
       "matchStrings": [
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
@@ -35,8 +35,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "(^|/)Dockerfile$"
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/"
       ],
       "matchStrings": [
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
@@ -47,9 +47,9 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "(^|/)Dockerfile$",
-        "(^|/)config.yaml$"
+      "managerFilePatterns": [
+        "/(^|/)Dockerfile$/",
+        "/(^|/)config.yaml$/"
       ],
       "matchStrings": [
         "ARG BUILD_EXT_RELEASE=[\"']?(?<currentValue>.+?)[\"']?\\s+",
