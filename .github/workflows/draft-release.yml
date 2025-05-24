@@ -6,10 +6,11 @@ on:
       - main
       - master
       - jammy
+      - noble
 
 jobs:
   update_release_draft:
     name: Release
-    uses: chukysoria/workflows/.github/workflows/new-release.yml@v1.0.15
+    uses: chukysoria/workflows/.github/workflows/new-release.yml@776dc292976143e26e3b6158c4c7434e87f72365 # v1.1.9
     with:
       tag-external-version: true

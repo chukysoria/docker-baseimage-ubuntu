@@ -1,12 +1,12 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1@sha256:9857836c9ee4268391bb5b09f9f157f3c91bb15821bb77969642813b0d00518d
 
-ARG BUILD_FROM=alpine:3.18.5
-
-FROM ${BUILD_FROM} as rootfs-stage
+ARG BUILD_FROM=alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+FROM ${BUILD_FROM} AS rootfs-stage
 
 # environment
-ARG BUILD_ARCH
-ARG BUILD_EXT_RELEASE=jammy
+ARG BUILD_ARCH=x86_64
+ARG BUILD_EXT_RELEASE=noble
+ARG BUILD_EXT_BUILD=20250516
 
 # install packages
 RUN \
@@ -27,17 +27,20 @@ RUN <<EOF
   fi
   mkdir /root-out
   curl -o \
-    /rootfs.tar.gz -L \
-    https://partner-images.canonical.com/core/${BUILD_EXT_RELEASE}/20230626/ubuntu-${BUILD_EXT_RELEASE}-core-cloudimg-${UBUNTU_ARCH}-root.tar.gz
-  tar xf \
-    /rootfs.tar.gz -C \
+    /rootfs.tar.xz -L \
+    https://cloud-images.ubuntu.com/${BUILD_EXT_RELEASE}/${BUILD_EXT_BUILD}/${BUILD_EXT_RELEASE}-server-cloudimg-${UBUNTU_ARCH}-root.tar.xz
+  tar xJf \
+    /rootfs.tar.xz -C \
     /root-out
   rm -rf \
-    /root-out/var/log/*
+    /root-out/var/log/* \
+    /root-out/home/ubuntu \
+    /root-out/root/{.ssh,.bashrc,.profile} \
+    /build
 EOF
 
 # set version for s6 overlay
-ARG S6_OVERLAY_VERSION="3.1.5.0"
+ARG S6_OVERLAY_VERSION="3.2.1.0"
 
 # add s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
@@ -61,16 +64,18 @@ RUN tar -C /root-out -Jxpf /tmp/s6-overlay-symlinks-arch.tar.xz
 # Runtime stage
 FROM scratch
 COPY --from=rootfs-stage /root-out/ /
-ARG BUILD_ARCH
+ARG BUILD_ARCH=x86_64
 ARG BUILD_DATE
 ARG VERSION
 ARG MODS_VERSION="v3"
 ARG PKG_INST_VERSION="v1"
+ARG LSIOWN_VERSION="v1"
 LABEL build_version="Carlosserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="Chukysoria"
 
-ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.${MODS_VERSION}" "/docker-mods"
-ADD --chmod=744 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
+ADD --chmod=755 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/docker-mods.${MODS_VERSION}" "/docker-mods"
+ADD --chmod=755 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/package-install.${PKG_INST_VERSION}" "/etc/s6-overlay/s6-rc.d/init-mods-package-install/run"
+ADD --chmod=755 "https://raw.githubusercontent.com/linuxserver/docker-mods/mod-scripts/lsiown.${LSIOWN_VERSION}" "/usr/bin/lsiown"
 
 # set environment variables
 ARG DEBIAN_FRONTEND="noninteractive"
@@ -89,6 +94,7 @@ COPY sources.list.${BUILD_ARCH} /etc/apt/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
+  rm -f /etc/apt/sources.list.d/ubuntu.sources && \
   set -xe && \
   echo '#!/bin/sh' \
     > /usr/sbin/policy-rc.d && \
@@ -122,17 +128,19 @@ RUN \
     > /run/systemd/container && \
   echo "**** install apt-utils and locales ****" && \
   apt-get update && \
+  apt-get upgrade -y && \
   apt-get install -y \
     apt-utils \
     locales && \
   echo "**** install packages ****" && \
   apt-get install -y \
+    catatonit \
     cron \
-    curl=7.81.0-1ubuntu1.15 \
+    curl=8.5.0-2ubuntu10.6 \
     gnupg \
-    jq=1.6-2.1ubuntu3 \
-    netcat=1.218-4ubuntu1 \
-    tzdata=2023c-0ubuntu0.22.04.2 && \
+    jq=1.7.1-3build1 \
+    netcat-openbsd=1.226-1ubuntu2 \
+    tzdata=2025b-0ubuntu0.24.04 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** create abc user and make our folders ****" && \
