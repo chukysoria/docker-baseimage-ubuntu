@@ -142,7 +142,6 @@ RUN \
     gnupg \
     jq=1.7.1-3build1 \
     netcat-openbsd=1.226-1ubuntu2 \
-    systemd-standalone-sysusers=1.0.0-1ubuntu1 \
     tzdata=2025b-0ubuntu0.24.04 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
@@ -160,7 +159,6 @@ RUN \
     "https://lsio-ci.ams3.digitaloceanspaces.com/qemu-arm-static" && \
   chmod +x /usr/bin/qemu-arm-static && \
   echo "**** cleanup ****" && \
-  userdel ubuntu && \
   apt-get autoremove && \
   apt-get clean && \
   rm -rf \
