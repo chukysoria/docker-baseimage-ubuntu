@@ -1,5 +1,5 @@
 ---
 build_from:
-  aarch64: arm64v8/alpine:3.21.3@sha256:7a04ffc3dd9fae02928205d3fb9414decdee461f62fc2b56df7f4da063ec6bdf
+  aarch64: arm64v8/alpine:3.22.0@sha256:fa4cf50559eaaaafd69341a3bc5fc09047b53480c884a3bc3e4f6e13da13f503
   x86_64: amd64/alpine:3.22.0@sha256:f29909b294ed398ae64ad9bc268a3ce2c4824fb37375cac63763e6e8f886f3b1
   armv7: arm32v7/alpine:3.22.0@sha256:ac00ead9038dd3725604674b613986f8591586eed669495fbf5ec04fcc1e4047
