@@ -3,7 +3,6 @@
   "extends": [
     "local>chukysoria/renovate-config",
     "local>chukysoria/renovate-config:docker-build",
-    "local>chukysoria/renovate-config:os-package(ubuntu_22_04)",
     "local>chukysoria/renovate-config:os-package(ubuntu_24_04)"
   ],
   "baseBranches": [
@@ -32,18 +31,6 @@
       "versioningTemplate": "loose",
       "datasourceTemplate": "custom.ubuntu-core-2404",
       "packageNameTemplate": "noble"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/(^|/)Dockerfile$/"
-      ],
-      "matchStrings": [
-        "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
-      ],
-      "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2204",
-      "packageNameTemplate": "jammy"
     },
     {
       "customType": "regex",
@@ -83,44 +70,6 @@
       ],
       "versioning": "regex:^v?(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\.(?<build>\\d+)$",
       "extractVersion": "^v(?<version>.*)$"
-    },
-    {
-      "matchDatasources": [
-        "ubuntu-core-2404"
-      ],
-      "matchBaseBranches": [
-        "jammy"
-      ],
-      "enabled": false
-    },
-    {
-      "matchBaseBranches": [
-        "jammy"
-      ],
-      "enabled": false,
-      "matchDepNames": [
-        "ubuntu{/,}**",
-        "!ubuntu_22_04{/,}**"
-      ]
-    },
-    {
-      "matchDatasources": [
-        "ubuntu-core-2204"
-      ],
-      "matchBaseBranches": [
-        "noble"
-      ],
-      "enabled": false
-    },
-    {
-      "matchBaseBranches": [
-        "noble"
-      ],
-      "enabled": false,
-      "matchDepNames": [
-        "ubuntu{/,}**",
-        "!ubuntu_24_04{/,}**"
-      ]
     }
   ]
 }
