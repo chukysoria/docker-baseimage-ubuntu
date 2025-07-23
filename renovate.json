@@ -5,7 +5,7 @@
     "local>chukysoria/renovate-config:docker-build",
     "local>chukysoria/renovate-config:os-package(ubuntu_24_04)"
   ],
-  "baseBranches": [
+  "baseBranchPatterns": [
     "noble"
   ],
   "customManagers": [
