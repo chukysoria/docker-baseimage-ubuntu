@@ -6,7 +6,7 @@ FROM ${BUILD_FROM} AS rootfs-stage
 # environment
 ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=noble
-ARG BUILD_EXT_BUILD=20251213
+ARG BUILD_EXT_BUILD=20260321
 
 # install packages
 RUN \
@@ -138,7 +138,7 @@ RUN \
   apt-get install -y \
     catatonit \
     cron \
-    curl=8.5.0-2ubuntu10.7 \
+    curl=8.5.0-2ubuntu10.8 \
     gnupg \
     jq=1.7.1-3ubuntu0.24.04.1 \
     netcat-openbsd=1.226-1ubuntu2 \

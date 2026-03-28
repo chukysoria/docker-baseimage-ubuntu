@@ -48,18 +48,11 @@
     }
   ],
   "customDatasources": {
-    "ubuntu-2204": {
-      "defaultRegistryUrlTemplate": "https://partner-images.canonical.com/core/{{packageName}}/",
-      "format": "plain",
-      "transformTemplates": [
-        "{\"releases\":$.releases.*[$contains($, \"[DIR]\")][$not($contains($, \"current\"))].{\"version\": $match(/>(\\d{8})/).groups[0],\"releaseTimestamp\": $match(/(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2})/).($.groups[0]&\"T\"&$.groups[1]&\"Z\")}}"
-      ]
-    },
     "ubuntu-core-2404": {
       "defaultRegistryUrlTemplate": "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json",
       "format": "json",
       "transformTemplates": [
-        "{'releases': [$.products.*[release='noble'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $&'T00:00Z'}]}"
+        "{'releases': [$.products.*[release='noble'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $substring($,0,8)&'T00:00Z'}]}"
       ]
     }
   },
