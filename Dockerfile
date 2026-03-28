@@ -1,12 +1,12 @@
-# syntax=docker/dockerfile:1@sha256:9857836c9ee4268391bb5b09f9f157f3c91bb15821bb77969642813b0d00518d
+# syntax=docker/dockerfile:1@sha256:b6afd42430b15f2d2a4c5a02b919e98a525b785b1aaff16747d2f623364e39b6
 
-ARG BUILD_FROM=alpine:3.21.3@sha256:a8560b36e8b8210634f77d9f7f9efd7ffa463e380b75e2e74aff4511df3ef88c
+ARG BUILD_FROM=alpine:3.23.3@sha256:25109184c71bdad752c8312a8623239686a9a2071e8825f20acb8f2198c3f659
 FROM ${BUILD_FROM} AS rootfs-stage
 
 # environment
 ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=noble
-ARG BUILD_EXT_BUILD=20250516
+ARG BUILD_EXT_BUILD=20251213
 
 # install packages
 RUN \
@@ -40,7 +40,7 @@ RUN <<EOF
 EOF
 
 # set version for s6 overlay
-ARG S6_OVERLAY_VERSION="3.2.1.0"
+ARG S6_OVERLAY_VERSION="3.2.2.0"
 
 # add s6 overlay
 ADD https://github.com/just-containers/s6-overlay/releases/download/v${S6_OVERLAY_VERSION}/s6-overlay-noarch.tar.xz /tmp
@@ -138,11 +138,11 @@ RUN \
   apt-get install -y \
     catatonit \
     cron \
-    curl=8.5.0-2ubuntu10.6 \
+    curl=8.5.0-2ubuntu10.7 \
     gnupg \
-    jq=1.7.1-3build1 \
+    jq=1.7.1-3ubuntu0.24.04.1 \
     netcat-openbsd=1.226-1ubuntu2 \
-    tzdata=2025b-0ubuntu0.24.04 && \
+    tzdata=2025b-0ubuntu0.24.04.1 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** create abc user and make our folders ****" && \
