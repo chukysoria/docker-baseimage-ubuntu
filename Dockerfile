@@ -142,7 +142,7 @@ RUN \
     gnupg \
     jq=1.7.1-3ubuntu0.24.04.1 \
     netcat-openbsd=1.226-1ubuntu2 \
-    tzdata=2025b-0ubuntu0.24.04.1 && \
+    tzdata=2026a-0ubuntu0.24.04.1 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** create abc user and make our folders ****" && \
