@@ -3,10 +3,10 @@
   "extends": [
     "local>chukysoria/renovate-config",
     "local>chukysoria/renovate-config:docker-build",
-    "local>chukysoria/renovate-config:os-package(ubuntu_24_04)"
+    "local>chukysoria/renovate-config:os-package(ubuntu_26_04)"
   ],
   "baseBranchPatterns": [
-    "noble"
+    "resolute"
   ],
   "customManagers": [
     {
@@ -29,8 +29,8 @@
         "ARG BUILD_EXT_BUILD=[\"']?(?<currentValue>.+?)[\"']?\\s+"
       ],
       "versioningTemplate": "loose",
-      "datasourceTemplate": "custom.ubuntu-core-2404",
-      "packageNameTemplate": "noble"
+      "datasourceTemplate": "custom.ubuntu-core-2604",
+      "packageNameTemplate": "resolute"
     },
     {
       "customType": "regex",
@@ -48,11 +48,11 @@
     }
   ],
   "customDatasources": {
-    "ubuntu-core-2404": {
+    "ubuntu-core-2604": {
       "defaultRegistryUrlTemplate": "https://cloud-images.ubuntu.com/releases/streams/v1/com.ubuntu.cloud:released:download.json",
       "format": "json",
       "transformTemplates": [
-        "{'releases': [$.products.*[release='noble'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $substring($,0,8)&'T00:00Z'}]}"
+        "{'releases': [$.products.*[release='resolute'][arch='amd64'].versions.$keys().{'version': $,'releaseTimestamp': $substring($,0,8)&'T00:00Z'}]}"
       ]
     }
   },
