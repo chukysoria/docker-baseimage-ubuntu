@@ -92,11 +92,10 @@ ENV HOME="/root" \
   PATH="/lsiopy/bin:$PATH"
 
 # copy sources
-COPY sources.list.${BUILD_ARCH} /etc/apt/sources.list
+COPY sources.list.${BUILD_ARCH} /etc/apt/sources.d/sources.list
 
 RUN \
   echo "**** Ripped from Ubuntu Docker Logic ****" && \
-  rm -f /etc/apt/sources.list.d/ubuntu.sources && \
   set -xe && \
   echo '#!/bin/sh' \
     > /usr/sbin/policy-rc.d && \
@@ -142,6 +141,7 @@ RUN \
     gnupg \
     jq=1.8.1-4ubuntu2 \
     netcat-openbsd=1.234-1 \
+    systemd-standalone-sysusers \
     tzdata=2026a-3ubuntu1 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
@@ -159,7 +159,7 @@ RUN \
     "https://lsio-ci.ams3.digitaloceanspaces.com/qemu-arm-static" && \
   chmod +x /usr/bin/qemu-arm-static && \
   echo "**** cleanup ****" && \
-  apt-get autoremove && \
+  apt-get autoremove -y && \
   apt-get clean && \
   rm -rf \
     /tmp/* \

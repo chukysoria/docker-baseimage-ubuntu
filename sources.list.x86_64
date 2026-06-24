@@ -1,12 +1,11 @@
-deb http://archive.ubuntu.com/ubuntu/ noble main restricted
-deb-src http://archive.ubuntu.com/ubuntu/ noble main restricted
-deb http://archive.ubuntu.com/ubuntu/ noble-updates main restricted
-deb-src http://archive.ubuntu.com/ubuntu/ noble-updates main restricted
-deb http://archive.ubuntu.com/ubuntu/ noble universe multiverse
-deb-src http://archive.ubuntu.com/ubuntu/ noble universe multiverse
-deb http://archive.ubuntu.com/ubuntu/ noble-updates universe multiverse
-deb-src http://archive.ubuntu.com/ubuntu/ noble-updates universe multiverse
-deb http://archive.ubuntu.com/ubuntu/ noble-security main restricted
-deb-src http://archive.ubuntu.com/ubuntu/ noble-security main restricted
-deb http://archive.ubuntu.com/ubuntu/ noble-security universe multiverse
-deb-src http://archive.ubuntu.com/ubuntu/ noble-security universe multiverse
+Types: deb deb-src
+URIs: https://archive.ubuntu.com/ubuntu/
+Suites: resolute resolute-updates resolute-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+Types: deb deb-src
+URIs: https://security.ubuntu.com/ubuntu/
+Suites: resolute-security
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
