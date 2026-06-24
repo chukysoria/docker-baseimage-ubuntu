@@ -3,7 +3,7 @@ image:  baseimage-ubuntu
 version: v0.3.71
 name: Base Image Ubuntu 
 description: "[baseimage-ubuntu] Base image for chukyserver.io"
-ext_release: noble
+ext_release: resolute
 arch:
   - aarch64
   - x86_64
