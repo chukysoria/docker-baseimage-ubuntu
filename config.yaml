@@ -1,6 +1,6 @@
 ---
 image:  baseimage-ubuntu
-version: v1.0.0
+version: v1.0.1
 name: Base Image Ubuntu 
 description: "[baseimage-ubuntu] Base image for chukyserver.io"
 ext_release: resolute
