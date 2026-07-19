@@ -137,7 +137,7 @@ RUN \
   apt-get install -y \
     catatonit \
     cron \
-    curl=8.18.0-1ubuntu2.2 \
+    curl=8.18.0-1ubuntu2.3 \
     gnupg \
     jq=1.8.1-4ubuntu2 \
     netcat-openbsd=1.234-1 \
