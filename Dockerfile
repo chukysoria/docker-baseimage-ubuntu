@@ -6,7 +6,7 @@ FROM ${BUILD_FROM} AS rootfs-stage
 # environment
 ARG BUILD_ARCH=x86_64
 ARG BUILD_EXT_RELEASE=resolute
-ARG BUILD_EXT_BUILD=20260627
+ARG BUILD_EXT_BUILD=20260717
 
 # install packages
 RUN \
