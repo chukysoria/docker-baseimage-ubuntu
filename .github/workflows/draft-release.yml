@@ -12,6 +12,6 @@ on:
 jobs:
   update_release_draft:
     name: Release
-    uses: chukysoria/workflows/.github/workflows/new-release.yml@4b247e285a531b5e101c50a8708d7ec7e28cff99 # v1.1.26
+    uses: chukysoria/workflows/.github/workflows/new-release.yml@c06ad64aea96e53c39f958574bb782fd479c9039 # v1.1.36
     with:
       tag-external-version: true
