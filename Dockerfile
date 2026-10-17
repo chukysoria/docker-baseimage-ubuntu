@@ -137,11 +137,11 @@ RUN \
   apt-get install -y \
     catatonit \
     cron \
-    curl=8.18.0-1ubuntu2.7 \
+    curl=8.18.0-1ubuntu2.8 \
     gnupg \
     jq=1.8.1-4ubuntu2 \
     netcat-openbsd=1.234-1 \
-    tzdata=2026c-0ubuntu0.26.04.1 && \
+    tzdata=2026e-0ubuntu0.26.04.1 && \
   echo "**** generate locale ****" && \
   locale-gen en_US.UTF-8 && \
   echo "**** create abc user and make our folders ****" && \
