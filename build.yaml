@@ -2,4 +2,4 @@
 build_from:
   aarch64: arm64v8/alpine:3.24.3@sha256:f7bad8ce534a6d96ba2d3e7d7b53fb1171aea384eccd61005d92f61d32e384b2
   x86_64: amd64/alpine:3.24.4@sha256:14918913a4f010a7bd0d0a4c04c6093cf0502ba975e3edfeb65dc013c5be3113
-  armv7: arm32v7/alpine:3.24.3@sha256:8a92376607551d8def97a3d9594c061ca6f84eafcc8185ee14bb7f268955bfbe
+  armv7: arm32v7/alpine:3.24.4@sha256:ba2a50f072dcb18ef099ddbf2027d4a215e6e0b1cb5c4641e2fae44cf9fd740f
